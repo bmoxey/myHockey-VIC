@@ -12,6 +12,7 @@ struct myHockey_VICApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
         }
     }
 }
