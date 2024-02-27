@@ -34,7 +34,7 @@ struct GetCompView: View {
             .foregroundColor(Color("DarkColor"))
             .tint(Color("DarkColor"))
             .pickerStyle(SegmentedPickerStyle())
-            .listRowBackground(Color("LightColor"))
+            .listRowBackground(Color("DarkColor").opacity(0.8))
             ForEach(comps) { comp in
                 if comp.compName == searchComp || searchComp == "ALL" {
                     if comp.type == searchType || searchType == "ALL" {

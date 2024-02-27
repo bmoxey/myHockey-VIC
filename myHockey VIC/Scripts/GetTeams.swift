@@ -13,8 +13,8 @@ func getTeams(myComp: Teams) async -> [Teams] {
     for i in 0 ..< lines.count {
         if lines[i].contains("\(url)teams/") {
             let teamID = lines[i].split(separator: "=")[2].trimmingCharacters(in: .punctuationCharacters)
-            let image = GetImage(teamName: lines[i+1])
             let teamName = ShortTeamName(fullName: lines[i+1])
+            let image = GetImage(teamName: teamName)
             teams.append(Teams(compName: myComp.compName, compID: myComp.compID, divName: myComp.divName, divID: myComp.divID, type: myComp.type, teamName: teamName, teamID: teamID, image: image))
         }
     }

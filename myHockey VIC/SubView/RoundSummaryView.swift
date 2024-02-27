@@ -17,6 +17,7 @@ struct RoundSummaryView: View {
     var body: some View {
         Section() {
             HStack {
+                Spacer()
                 Text("\(round.roundNo) - \(formattedDate)")
                     .foregroundStyle(Color("LightColor"))
                 Spacer()
