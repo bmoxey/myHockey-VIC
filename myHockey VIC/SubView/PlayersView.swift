@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayersView: View {
     @State var searchTeam: String
-    @Binding var myRound: Rounds
+    @Binding var myRound: Round
     @Binding var players: [Player]
 
     var body: some View {
@@ -31,7 +31,7 @@ struct PlayersView: View {
             .foregroundColor(Color("LightColor"))
             .pickerStyle(SegmentedPickerStyle())
             .listRowBackground(Color("DarkColor").opacity(0.8))
-            ForEach(players, id:\.id) {player in
+            ForEach(players.sorted(by: { $0.surname < $1.surname }), id: \.id) {player in
                 if player.team == searchTeam {
                     PlayerView(player: player)
                 }
@@ -44,5 +44,5 @@ struct PlayersView: View {
 }
 
 #Preview {
-    PlayersView(searchTeam: "", myRound: .constant(Rounds()), players: .constant([]))
+    PlayersView(searchTeam: "", myRound: .constant(Round()), players: .constant([]))
 }

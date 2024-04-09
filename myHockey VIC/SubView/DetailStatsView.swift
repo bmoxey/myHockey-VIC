@@ -47,9 +47,9 @@ struct DetailStatsView: View {
               .padding(.horizontal, 0)
           }
           Spacer()
-          Text("\(player.goals)")
-              .frame(width: 30)
-              .foregroundStyle(Color("DarkColor"))
+//          Text("\(player.goals)")
+//              .frame(width: 30)
+//              .foregroundStyle(Color("DarkColor"))
           Text("\(player.numberGames)")
               .frame(width: 30)
               .foregroundStyle(Color("DarkColor"))

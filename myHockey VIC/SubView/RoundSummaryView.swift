@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct RoundSummaryView: View {
-    @Binding var round: Rounds
-    var formattedDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE d MMM h:mm a"
-        return dateFormatter.string(from: round.date)
-    }
+    @Binding var round: Round
     var body: some View {
         Section() {
             HStack {
                 Spacer()
-                Text("\(round.roundNo) - \(formattedDate)")
+                Text("\(round.roundNo)")
                     .foregroundStyle(Color("LightColor"))
                 Spacer()
             }
@@ -93,5 +88,5 @@ struct RoundSummaryView: View {
 }
 
 #Preview {
-    RoundSummaryView(round: .constant(Rounds()))
+    RoundSummaryView(round: .constant(Round()))
 }

@@ -11,9 +11,9 @@ struct FixtureView: View {
     @ObservedObject private var teamsManager = TeamsManager()
     @State private var fixtures: [Fixture] = []
     @State private var haveData = false
-    @State private var myRound: Rounds = Rounds()
+    @State private var myRound: Round = Round()
     @State private var myPlayers: [Player] = []
-    @State var currentFixture: Fixture?
+    @State var currentFixture: Fixture? = Fixture()
     @State var address: String = ""
     @State var searchTeam: String = ""
     var body: some View {
@@ -29,6 +29,16 @@ struct FixtureView: View {
                             try? await Task.sleep(nanoseconds: 50_000_000)
                             let count = fixtures.filter { $0.date < Date() }.count
                             scrollToElement(index: count)
+                            if count > 0 {
+                                currentFixture = fixtures[count-1]
+                                if currentFixture?.result != "BYE" {
+                                    if currentFixture?.status == "Playing" {
+                                        address = await getGround(fixture: currentFixture ?? Fixture())
+                                    } else {
+                                        (myRound, myPlayers) = await getGame(fixture: currentFixture ?? Fixture())
+                                    }
+                                }
+                            }
                             haveData = true
                         }
                     }
@@ -36,23 +46,24 @@ struct FixtureView: View {
             } else {
                 FixtureSelectionView(fixtures: $fixtures, currentFixture: $currentFixture)
                 FixtureListView(fixtures: $fixtures, currentFixture: $currentFixture)
-            }
-            List {
-                if currentFixture?.result == "BYE" {
-                    BYEFixtureView(fixture: $currentFixture)
-                } else {
-                    if currentFixture?.status == "Playing" {
-                        UpcomingFixtureView(fixture: $currentFixture)
-                        GroundView(fixture: $currentFixture, address: $address)
+                
+                List {
+                    if currentFixture?.result == "BYE" {
+                        BYEFixtureView(fixture: $currentFixture)
                     } else {
-                        if myRound.homeTeam != "" {
-                            RoundSummaryView(round: $myRound)
-                            PlayersView(searchTeam: myRound.myTeam, myRound: $myRound, players: $myPlayers)
+                        if currentFixture?.status == "Playing" {
+                            UpcomingFixtureView(fixture: $currentFixture)
+                            GroundView(fixture: $currentFixture, address: $address)
+                        } else {
+                            if myRound.homeTeam != "" {
+                                RoundSummaryView(round: $myRound)
+                                PlayersView(searchTeam: myRound.myTeam, myRound: $myRound, players: $myPlayers)
+                            }
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
             }
-            .scrollContentBackground(.hidden)
         }
         .onChange(of: currentFixture, {
             Task() {

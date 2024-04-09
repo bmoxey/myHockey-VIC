@@ -36,7 +36,7 @@ func GetScores(scores: String, seperator: String) -> (String, String) {
     return (homeScore, awayScore)
 }
 
-func GetHomeTeam(result: String, homeGoals: String, awayGoals: String, myTeam: String, opponent: String, rounds: [Rounds], venue: String) -> (String, String) {
+func GetHomeTeam(result: String, homeGoals: String, awayGoals: String, myTeam: String, opponent: String, rounds: [Round], venue: String) -> (String, String) {
     var homeTeam = myTeam
     var awayTeam = ""
     if result == "Win" {

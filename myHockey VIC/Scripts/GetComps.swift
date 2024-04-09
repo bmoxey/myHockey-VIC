@@ -13,15 +13,15 @@ func getComps() async -> [Teams] {
     var myCompID = ""
     var comps: [Teams] = []
     var lines: [String] = []
-    lines = GetUrl(url: "\(url)/games/")
+    lines = GetUrl(url: "\(url)games/")
     for i in 0 ..< lines.count {
-        if lines[i].contains("/reports/games/download/") {
+        if lines[i].contains("/reports/games/") {
             myCompName = lines[i-5]
-            myCompID = String(lines[i].split(separator: "=")[4]).trimmingCharacters(in: .punctuationCharacters)
+            myCompID = String(lines[i].split(separator: "/")[4]).trimmingCharacters(in: .punctuationCharacters)
         }
         if lines[i].contains("/games/\(myCompID)/") {
             let myDivName = ShortDivName(fullName: String(lines[i+1]))
-            let myDivID = String(lines[i].split(separator: "=")[2]).trimmingCharacters(in: .punctuationCharacters)
+            let myDivID = String(lines[i].split(separator: "/")[4]).trimmingCharacters(in: .punctuationCharacters)
             var type = "👫"
             if myDivName.contains("Boy") { type =  "👦🏻" }
             if myDivName.contains("Girl") { type = "👧🏻" }

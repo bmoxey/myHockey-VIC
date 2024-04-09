@@ -26,9 +26,9 @@ struct DetailLadderHeaderView: View {
                 .font(.footnote)
                 .foregroundStyle(Color("LightColor"))
                 .frame(width: 40, alignment: .trailing)
-            Text("")
-                .font(.footnote)
-                .frame(width: 6)
+//            Text("")
+//                .font(.footnote)
+//                .frame(width: 6)
         }
         .frame(height: 10)
     }

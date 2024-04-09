@@ -13,6 +13,7 @@ struct RoundFile: Codable, Identifiable {
     var id: UUID
     var roundNo: String
     var roundURL: String
+    var roundNum: String
     var compName: String
     var compID: String
     var divName: String
@@ -22,6 +23,7 @@ struct RoundFile: Codable, Identifiable {
         self.id = UUID()
         self.roundNo = ""
         self.roundURL = ""
+        self.roundNum = ""
         self.compName = ""
         self.compID = ""
         self.divName = ""
@@ -29,7 +31,29 @@ struct RoundFile: Codable, Identifiable {
     }
 }
 
-struct Rounds: Codable, Identifiable, Equatable {
+struct Rounds: Codable, Identifiable, Hashable {
+    var id: UUID
+    var roundNo: String
+    var roundNum: String
+    var textdate: String
+    var lastdate: Date
+    var result: String
+    var played: String
+    var divName: String
+    
+    init() {
+        self.id = UUID()
+        self.roundNo = ""
+        self.roundNum = ""
+        self.textdate = ""
+        self.lastdate = Date()
+        self.result = ""
+        self.played = ""
+        self.divName = ""
+    }
+}
+
+struct Round: Codable, Identifiable, Hashable {
     var id: UUID
     var roundNo: String
     var date: Date

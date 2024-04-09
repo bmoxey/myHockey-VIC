@@ -10,7 +10,6 @@ import SwiftUI
 struct UpcomingFixtureView: View {
     @Binding var fixture: Fixture?
     @State private var timeRemaining: TimeInterval = 0
-    @State private var timer: Timer?
     var body: some View {
         Section() {
             HStack {
@@ -22,32 +21,13 @@ struct UpcomingFixtureView: View {
             }
             .listRowBackground(Color("DarkColor"))
             .onChange(of: fixture ) {
-                timer?.invalidate()
-                timer = nil
                 guard let mydate = fixture?.date else { return }
                 timeRemaining = mydate.timeIntervalSinceNow
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    timeRemaining = mydate.timeIntervalSinceNow
-                    if timeRemaining <= 0 {
-                        timer?.invalidate()
-                        timer = nil
-                    }
-                }
             }
             .onAppear {
                 guard let mydate = fixture?.date else { return }
                 timeRemaining = mydate.timeIntervalSinceNow
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    timeRemaining = mydate.timeIntervalSinceNow
-                    if timeRemaining <= 0 {
-                        timer?.invalidate()
-                        timer = nil
-                    }
-                }
-            }
-            .onDisappear {
-                timer?.invalidate()
-                timer = nil
+                timeRemaining = mydate.timeIntervalSinceNow
             }
             HStack {
                 Image(GetImage(teamName: fixture?.opponent ?? "AppLogo"))
